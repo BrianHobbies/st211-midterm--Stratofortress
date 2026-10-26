@@ -1,14 +1,27 @@
 # REPORT.md
 
-Group: <name>   Members: <names>
+Group: <Stratofortress>   
+| Member | GitHub Username | 
+|---|---|---|
+| Aung San Thu Rain Tun | BrianHobbies | 
+| May Than Thar Ko | 6805140051-oss | 
+| Moe Pyae Kyaw | 6805142010-hue | 
 
 ## Part A -- Test types
-For smoke, regression, and slow: define it, say when it runs, give two
-bookstore-relevant examples.
+*Smoke. Quick, shallow checks that the core features work at all. Run on every push or deployment, first in the pipeline, so a badly broken build is rejected within seconds. Examples: register a new user then log in; add a product, add it to the cart and check out a non-empty cart.
+
+*Regression. A test written for a specific bug that was found and fixed, which fails while the bug exists and passes once fixed. It guards against the bug returning. Run on every change before merging and in the full suite before release. Examples: the cart total includes the last item; login rejects a wrong password.
+
+*Slow. A test that takes a long time because of large data or many operations. Too slow to run on every commit, so run nightly or before a release. Examples: import 50,000 products and search them; add items to the cart and check out in a loop of thousands of orders.
 
 ## Part B -- Scenario classification
-For each of the six scenarios: smoke / regression / slow (may be more than one)
-with a 2-3 sentence justification.
+1. Password-reset email within one minute: slow. It waits on an external email system for up to a minute, so it can never be a quick check. It could also count as smoke if reset is business-critical, but the wait makes slow the main label.
+2. Previously fixed shipping-cost bug has not returned: regression. It exists to guard one fixed defect. It is fast and should run on every change. 
+3. Nightly job generating a report from ten years of orders: slow. The size of the data is the whole point. It runs on the nightly schedule, not per commit. It is not regression, since no past bug is named.
+4. Payment page loads after every deployment: smoke. It is a fast check of a core feature, run on every deployment as a gate. If the page fails to load, nothing else is worth testing.
+5. Refund issued twice does not credit twice: regression. This is a customer-reported fault from last quarter, so the test pins a known bug. It is not smoke.
+6. Recommendation engine with one million titles: slow. It is a scale test of a large catalogue. It would become slow and regression only if it came from a past failure at that size.
+
 
 ## Part F -- Team reflection
 1. Why is running only regression tests before every commit inefficient?
