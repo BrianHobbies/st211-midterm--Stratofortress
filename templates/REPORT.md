@@ -1,12 +1,11 @@
 # REPORT.md
 
 Group: <Stratofortress>   
-| Member | GitHub Username | 
-|---|---|---|
-| Aung San Thu Rain Tun | BrianHobbies | 
-| May Than Thar Ko | 6805140051-oss | 
-| Moe Pyae Kyaw | 6805142010-hue | 
-
+| Member  | ID | Username |
+| ------------- | ------------- | ------------- |
+| Aung San Thu Rain Tun  | 6805142005 | BrianHobbies |
+| May Than Thar Ko  | 6805140051 | 6805140051-oss |
+| Moe Pyae Kyaw  | 6805142010 | 6805142010-hue |
 ## Part A -- Test types
 *Smoke. Quick, shallow checks that the core features work at all. Run on every push or deployment, first in the pipeline, so a badly broken build is rejected within seconds. Examples: register a new user then log in; add a product, add it to the cart and check out a non-empty cart.
 
