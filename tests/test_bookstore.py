@@ -9,6 +9,7 @@ slow) and name its author in the docstring, e.g.:
 
 Run:  pytest            (all)     pytest -m smoke     pytest -m regression
 """
+    
 import pytest
 from bookstore_app import Users, Catalog, Cart
 
@@ -20,6 +21,15 @@ def test_example_register():
 
 
 # ---- YOUR SMOKE TESTS (at least 5) ----
+@pytest.mark.smoke
+def test_smoke_register_new_user_and_reject_duplicate():
+    """Author: Aung San Thu Rain Tun. Smoke: registration succeeds for a new user, the
+    account is actually stored, and a duplicate username is refused.
+    Catches: 'user registration always fails'."""
+    users = Users()
+    assert users.register("alice", "secret123") is True
+    assert "alice" in users.users      
+    assert users.register("alice", "other456") is False
 
 # ---- YOUR REGRESSION TESTS (the bug hunt) ----
 
