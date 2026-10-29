@@ -101,14 +101,14 @@ leaving the row blank. Check before you write.
 
 | # | Test | What it claims to catch | Shipped | Fixed | Verdict | Auditor |
 |---|---|---|---|---|---|---|
-| 1 | | | | | | |
-| 2 | | | | | | |
-| 3 | | | | | | |
-| 4 | | | | | | |
-| 5 | | | | | | |
-| 6 | | | | | | |
-| 7 | | | | | | |
-| 8 | | | | | | |
+| 1 | test_cart_total_sums_items | Cart total calculation | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
+| 2 | test_login_rejects_wrong_password | Reject incorrect password | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
+| 3 | test_search_finds_exact_title | Find matching book title | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
+| 4 | test_import_returns_count | Return correct imported item count | FAIL | PASS | Genuine detection | Moe Pyae Kyaw |
+| 5 | test_register_duplicate_returns_false | Reject duplicate registration | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
+| 6 | test_checkout_empty_returns_none | Return None for empty checkout | FAIL | PASS | Genuine detection | Moe Pyae Kyaw |
+| 7 | test_add_to_cart_returns_true_for_known_product | Accept a known product | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
+| 8 | test_search_is_limited_to_ten_results | Limit search results to ten | FAIL | FAIL | Needs investigation | Moe Pyae Kyaw |
 
 ### Detail entries
 
@@ -118,40 +118,64 @@ and line instead.
 
 ---
 
-#### Test: `test_<function_name>`  (`ai_review/test_ai_suggested.py:<line>`)
+ 
+### Test 1: test_cart_total_sums_items
 
-**Audited by:** _______________
+**Audited by:** Moe Pyae Kyaw
 
-**1. What it claims to catch.** One or two sentences, in your own words, from
-its name and docstring.
+**What it claims to catch:**  
+This test claims to check whether the cart total correctly adds the prices of items.
 
-**2. Evidence — against the shipped code**
+**Evidence — shipped code:**  
+Command: `pytest ai_review/test_ai_generated.py::test_cart_total_sums_items -v`  
+Result: PASSED
 
-```text
-<paste the pytest output for this test>
-```
+**Evidence — fixed code:**  
+Command: `pytest ai_review/test_ai_generated.py::test_cart_total_sums_items -v`  
+Result: PASSED
 
-**3. Evidence — against your fixed code**
+**What the pair proves:**  
+The test passed with both the original buggy code and the fixed code. It did not detect the planted cart total bug.
 
-```text
-<paste the pytest output for this test>
-```
-
-**4. What that pair proves.** Name the row of the classification table you
-landed on and say why. If the verdict is "detects nothing" or "locks in the
-bug", identify the specific weakness — which assertion, and what it would have
-had to say instead. If it is "invented requirement", say where in the
-application's behaviour you established that the requirement does not exist.
-
-**5. Verdict** (tick one)
-
-- [ ] Genuine detection — FAIL then PASS
-- [ ] Detects nothing — PASS then PASS
-- [ ] Locks in the bug — PASS then FAIL
-- [ ] Invented requirement — FAIL then FAIL
+**Verdict:** Detects nothing.
 
 ---
 
+### Test: `test_login_rejects_wrong_password`
+
+**Audited by:** Moe Pyae Kyaw
+**1. What it claims to catch**
+
+This test checks whether the login function rejects an incorrect password. It is intended to verify that a user cannot log in with the wrong credentials.
+
+**2. Evidence – against the shipped code**
+
+Command: `python -m pytest ai_review/test_ai_generated.py::test_login_rejects_wrong_password -v`
+
+Result: PASSED (1 passed)
+
+**3. Evidence – against the fixed code**
+
+Command: `python -m pytest ai_review/test_ai_generated.py::test_login_rejects_wrong_password -v`
+
+Result: PASSED (1 passed)
+
+**4. What that pair proves**
+
+The test passed against both the original buggy code and the fixed code. It checks incorrect-password rejection but does not detect any of the identified bugs.
+
+**5. Verdict**
+
+- [x] Detects nothing – PASS then PASS
+---
+
+### Test: `test_search_finds_exact_title`
+
+**Audited by:** Moe Pyae Kyaw
+
+**1. What it claims to catch**
+
+This test checks whether the catalog search function can find a book by its exact title. It verifies basic search functionality but does not specifically test the maximum number of search results.
 ## Part 3 — Coverage against your own bug hunt
 
 One row per bug you recorded in `FINDINGS.md`, plus a row for any bug the
