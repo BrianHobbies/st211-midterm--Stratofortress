@@ -121,3 +121,38 @@ def test_smoke_add_product_is_saved_and_searchable():
     assert catalog.products[1]["title"] == "Python Basics"
     assert catalog.products[1]["price"] == 20.0
     assert catalog.search("Python") == [1]
+
+
+@pytest.mark.smoke
+def test_smoke_add_to_cart_reaches_the_cart():
+    """Author: Moe Pyae Kyaw. Smoke: adding products puts them
+    in the cart, while an unknown product is rejected."""
+    catalog = Catalog()
+    catalog.add_product(1, "Python Basics", 20.0)
+    catalog.add_product(2, "Data Science", 30.0)
+
+    cart = Cart(catalog)
+    assert cart.add(1) is True
+    assert cart.add(2) is True
+    assert cart.items == [1, 2]
+    assert cart.add(999) is False
+    assert 999 not in cart.items
+
+
+@pytest.mark.smoke
+def test_smoke_checkout_produces_an_order_and_empties_cart():
+    """Author: Moe Pyae Kyaw. Smoke: checkout creates an order,
+    records it in history, and empties the cart."""
+    catalog = Catalog()
+    catalog.add_product(1, "Python Basics", 20.0)
+    catalog.add_product(2, "Data Science", 30.0)
+
+    cart = Cart(catalog)
+    cart.add(1)
+    cart.add(2)
+
+    order = cart.checkout()
+    assert order is not None
+    assert order == [1, 2]
+    assert cart.history() == [[1, 2]]
+    assert cart.items == []
