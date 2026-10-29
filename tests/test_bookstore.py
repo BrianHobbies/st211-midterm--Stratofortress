@@ -98,3 +98,26 @@ def test_import_products_returns_exact_count():
     assert imported == 3
     assert len(cart.catalog.products) == 3
  # ---- YOUR SLOW TESTS (at least 2) ----
+
+
+@pytest.mark.smoke
+def test_smoke_login_accepts_correct_and_rejects_wrong_password():
+    """Author: May Than Thar Ko. Smoke: correct login succeeds,
+    wrong password and unknown user are rejected."""
+    users = Users()
+    users.register("bob", "pass1234")
+    assert users.login("bob", "pass1234") is True
+    assert users.login("bob", "wrongpass") is False
+    assert users.login("nobody", "pass1234") is False
+
+
+@pytest.mark.smoke
+def test_smoke_add_product_is_saved_and_searchable():
+    """Author: May Than Thar Ko. Smoke: an added product is saved
+    with its details and can be found by search."""
+    catalog = Catalog()
+    catalog.add_product(1, "Python Basics", 20.0)
+    assert 1 in catalog.products
+    assert catalog.products[1]["title"] == "Python Basics"
+    assert catalog.products[1]["price"] == 20.0
+    assert catalog.search("Python") == [1]
