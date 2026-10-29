@@ -18,5 +18,5 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: pytest -m smoke
+      - run: PYTHONPATH=. python -m pytest -m smoke
       # TODO: add a job (or step) that runs the full suite on the nightly schedule
