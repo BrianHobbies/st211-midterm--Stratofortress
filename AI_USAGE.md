@@ -1,6 +1,6 @@
 # AI Usage Declaration and Audit
 
-**Group:** _____________________  **Members:** _____________________________
+**Group:** Stratofortress  **Members:** Aung San Thu Rain Tun ,Moe Pyae Kyaw ,May Than Thar Ko
 
 **Part D3 of the midterm — 20 marks.** Part 1 is required but carries no marks;
 its absence is an academic-honesty matter. Part 2 is worth 16 (2 per test).
@@ -26,17 +26,16 @@ Not declaring it is not.
 
 | Tool | What we used it for | Where in the project | How we checked it before relying on it |
 |---|---|---|---|
-| *example:* Copilot | completing test boilerplate | `tests/test_bookstore.py` | ran each test against the shipped code and confirmed it failed for the reason we expected |
-| | | | |
-| | | | |
+
+| ChatGPT | Understanding assignment instructions and GitHub workflow | AI_USAGE.md and repository workflow | Checked the explanations against the assignment instructions and GitHub files |
+| ChatGPT | Understanding exam questions and helping write Python code | Assignment instructions and Python files | Code execution and verification have not yet been confirmed.
 
 If you kept prompts worth showing, add them in an appendix at the end of this
 file. Do not paste whole conversations.
 
 If no AI tools were used anywhere, write this instead of the table:
 
-> No AI tools were used in this project. All tests, bug investigation and fixes
-> were produced by the group.
+
 
 ---
 
