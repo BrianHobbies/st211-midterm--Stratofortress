@@ -13,7 +13,7 @@ Run:  pytest            (all)     pytest -m smoke     pytest -m regression
 import pytest
 from bookstore_app import Users, Catalog, Cart
 
-
+# ---- YOUR SMOKE TESTS (at least 5) ----
 @pytest.mark.smoke
 def test_example_register():
     """Author: <example>. Smoke: a new user can register."""
@@ -41,8 +41,6 @@ def test_smoke_add_product_is_saved_and_searchable():
     assert catalog.products[1]["price"] == 20.0
     assert catalog.search("Python") == [1]
 
-
-# ---- YOUR SMOKE TESTS (at least 5) ----
 @pytest.mark.smoke
 def test_smoke_register_new_user_and_reject_duplicate():
     """Author: Aung San Thu Rain Tun. Smoke: registration succeeds for a new user, the
@@ -119,6 +117,7 @@ def test_import_products_returns_exact_count():
     imported = cart.import_products([(1, "A", 5), (2, "B", 6), (3, "C", 7)])
     assert imported == 3
     assert len(cart.catalog.products) == 3
+
 # ---- YOUR SLOW TESTS (at least 2) ----
 @pytest.mark.slow
 def test_slow_bulk_import_fifty_thousand_products():
