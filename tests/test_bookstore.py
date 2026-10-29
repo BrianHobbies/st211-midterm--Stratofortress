@@ -119,8 +119,6 @@ def test_import_products_returns_exact_count():
     imported = cart.import_products([(1, "A", 5), (2, "B", 6), (3, "C", 7)])
     assert imported == 3
     assert len(cart.catalog.products) == 3
-<<<<<<< HEAD
-
 # ---- YOUR SLOW TESTS (at least 2) ----
 @pytest.mark.slow
 def test_slow_bulk_import_fifty_thousand_products():
@@ -138,9 +136,3 @@ def test_slow_bulk_import_fifty_thousand_products():
     assert catalog.products[n - 1]["title"] == f"Book number {n - 1}"
     assert catalog.search("Book number 49999") == [49999]
     assert len(catalog.search("Book")) == n
-=======
- # ---- YOUR SLOW TESTS (at least 2) ----
-
-
-
->>>>>>> 54f35bac713da54f827fcb5f19621aa8f5d24930
