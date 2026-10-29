@@ -19,6 +19,28 @@ def test_example_register():
     """Author: <example>. Smoke: a new user can register."""
     assert Users().register("newuser", "password123") is True
 
+@pytest.mark.smoke
+def test_smoke_login_accepts_correct_and_rejects_wrong_password():
+    """Author: May Than Thar Ko. Smoke: correct login succeeds,
+    wrong password and unknown user are rejected."""
+    users = Users()
+    users.register("bob", "pass1234")
+    assert users.login("bob", "pass1234") is True
+    assert users.login("bob", "wrongpass") is False
+    assert users.login("nobody", "pass1234") is False
+
+
+@pytest.mark.smoke
+def test_smoke_add_product_is_saved_and_searchable():
+    """Author: May Than Thar Ko. Smoke: an added product is saved
+    with its details and can be found by search."""
+    catalog = Catalog()
+    catalog.add_product(1, "Python Basics", 20.0)
+    assert 1 in catalog.products
+    assert catalog.products[1]["title"] == "Python Basics"
+    assert catalog.products[1]["price"] == 20.0
+    assert catalog.search("Python") == [1]
+
 
 # ---- YOUR SMOKE TESTS (at least 5) ----
 @pytest.mark.smoke
@@ -97,6 +119,7 @@ def test_import_products_returns_exact_count():
     imported = cart.import_products([(1, "A", 5), (2, "B", 6), (3, "C", 7)])
     assert imported == 3
     assert len(cart.catalog.products) == 3
+<<<<<<< HEAD
 
 # ---- YOUR SLOW TESTS (at least 2) ----
 @pytest.mark.slow
@@ -115,3 +138,9 @@ def test_slow_bulk_import_fifty_thousand_products():
     assert catalog.products[n - 1]["title"] == f"Book number {n - 1}"
     assert catalog.search("Book number 49999") == [49999]
     assert len(catalog.search("Book")) == n
+=======
+ # ---- YOUR SLOW TESTS (at least 2) ----
+
+
+
+>>>>>>> 54f35bac713da54f827fcb5f19621aa8f5d24930
