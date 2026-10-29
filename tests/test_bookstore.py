@@ -60,4 +60,41 @@ def test_cart_total_includes_every_item():
     for pid in (1, 2, 3):
         cart.add(pid)
     assert cart.total() == 60
+
+@pytest.mark.regression
+def test_checkout_empty_cart_returns_none_and_records_no_order():
+    """Author: <ASTRH>. Regression for Cart.checkout.
+    Observed: checking out an empty cart returns [] and appends an empty
+    order to the history.
+    Expected: the docstring says it returns None if the cart is empty, and
+    no order should be recorded."""
+    cart = Cart(Catalog())
+    assert cart.checkout() is None
+    assert cart.history() == []
+ 
+ 
+@pytest.mark.regression
+def test_search_is_case_insensitive():
+    """Author: <ASTRH>. Regression for Catalog.search.
+    Observed: search("python") returns [] for a product titled
+    "Python Testing", and search("TESTING") also returns []. Only an exact
+    case match is found.
+    Expected: search returns every product whose title contains the keyword
+    regardless of letter case, as a shopper would expect."""
+    catalog = Catalog()
+    catalog.add_product(1, "Python Testing", 30)
+    assert catalog.search("Python") == [1]
+    assert catalog.search("python") == [1]
+    assert catalog.search("TESTING") == [1]
+ 
+ 
+@pytest.mark.regression
+def test_import_products_returns_exact_count():
+    """Author: <ASTRH>. Regression for Cart.import_products.
+    Observed: importing 3 products returns 4 (count + 1).
+    Expected: it returns how many were imported, i.e. 3."""
+    cart = Cart(Catalog())
+    imported = cart.import_products([(1, "A", 5), (2, "B", 6), (3, "C", 7)])
+    assert imported == 3
+    assert len(cart.catalog.products) == 3
  # ---- YOUR SLOW TESTS (at least 2) ----
