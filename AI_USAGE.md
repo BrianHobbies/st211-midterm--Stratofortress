@@ -27,8 +27,10 @@ Not declaring it is not.
 | Tool | What we used it for | Where in the project | How we checked it before relying on it |
 |---|---|---|---|
 
-| ChatGPT | Understanding assignment instructions and GitHub workflow | AI_USAGE.md and repository workflow | Checked the explanations against the assignment instructions and GitHub files |
-| ChatGPT | Understanding exam questions and helping write Python code | Assignment instructions and Python files | Code execution and verification have not yet been confirmed.
+| ChatGPT | Understanding assignment instructions and GitHub workflow | AI_USAGE.md and repository workflow | Checked explanations against assignment instructions and GitHub files |
+| ChatGPT | Suggesting Python bug fixes and regression tests | bookstore_app/, tests/test_bookstore.py, FINDINGS.md | Reviewed suggestions, modified code, and verified results using pytest |
+| ChatGPT | Helping create smoke tests for login, catalog, cart, and checkout | tests/test_bookstore.py | Ran the four smoke tests and confirmed they passed |
+| ChatGPT | Explaining AI-generated test auditing and reporting requirements | AI_USAGE.md | Audit conclusions will be checked against actual test outputs |
 
 If you kept prompts worth showing, add them in an appendix at the end of this
 file. Do not paste whole conversations.
