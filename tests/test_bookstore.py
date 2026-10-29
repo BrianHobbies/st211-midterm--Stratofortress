@@ -46,4 +46,18 @@ def test_login_must_not_strip_characters_from_password():
     assert users.login("dave", "p@ss!word") is True
     assert users.login("eve", "abc123") is True
     assert users.login("eve", "a-b-c-1-2-3") is False
+
+def test_cart_total_includes_every_item():
+    """Author: <ASTRH>. Regression for Cart.total.
+    Observed: the loop runs over range(len(items) - 1), so the LAST item is
+    never added: items priced 10, 20, 30 give 30 instead of 60.
+    Expected: total() is the sum of the prices of all items in the cart."""
+    catalog = Catalog()
+    catalog.add_product(1, "A", 10)
+    catalog.add_product(2, "B", 20)
+    catalog.add_product(3, "C", 30)
+    cart = Cart(catalog)
+    for pid in (1, 2, 3):
+        cart.add(pid)
+    assert cart.total() == 60
  # ---- YOUR SLOW TESTS (at least 2) ----
