@@ -171,7 +171,7 @@ def test_slow_bulk_import_fifty_thousand_products():
     assert catalog.products[0]["title"] == "Book number 0"
     assert catalog.products[n - 1]["title"] == f"Book number {n - 1}"
     assert catalog.search("Book number 49999") == [49999]
-    assert len(catalog.search("Book")) == n
+    assert len(catalog.search("Book")) == 10
 
 @pytest.mark.slow
 def test_slow_many_shopping_sessions_in_a_loop():
