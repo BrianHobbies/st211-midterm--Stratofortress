@@ -97,4 +97,21 @@ def test_import_products_returns_exact_count():
     imported = cart.import_products([(1, "A", 5), (2, "B", 6), (3, "C", 7)])
     assert imported == 3
     assert len(cart.catalog.products) == 3
- # ---- YOUR SLOW TESTS (at least 2) ----
+
+# ---- YOUR SLOW TESTS (at least 2) ----
+@pytest.mark.slow
+def test_slow_bulk_import_fifty_thousand_products():
+    """Author: <ASTRH>. Slow: bulk-import 150,000 products and confirm every
+    one is stored and searchable.
+    # SLOW BECAUSE: import_products loops over every product and yields the scheduler each iteration via time.sleep(0), and the follow-up 
+    # checks scan all 150,000 catalog entries"""
+    catalog = Catalog()
+    cart = Cart(catalog)
+    n = 150_000
+    products = [(i, f"Book number {i}", 10.0 + (i % 50)) for i in range(n)]
+    cart.import_products(products)
+    assert len(catalog.products) == n
+    assert catalog.products[0]["title"] == "Book number 0"
+    assert catalog.products[n - 1]["title"] == f"Book number {n - 1}"
+    assert catalog.search("Book number 49999") == [49999]
+    assert len(catalog.search("Book")) == n
