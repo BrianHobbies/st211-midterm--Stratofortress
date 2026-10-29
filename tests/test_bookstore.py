@@ -104,6 +104,7 @@ def test_login_must_not_strip_characters_from_password():
     assert users.login("eve", "abc123") is True
     assert users.login("eve", "a-b-c-1-2-3") is False
 
+@pytest.mark.regression
 def test_cart_total_includes_every_item():
     """Author: <ASTRH>. Regression for Cart.total.
     Observed: the loop runs over range(len(items) - 1), so the LAST item is
@@ -128,7 +129,6 @@ def test_checkout_empty_cart_returns_none_and_records_no_order():
     cart = Cart(Catalog())
     assert cart.checkout() is None
     assert cart.history() == []
- 
  
 @pytest.mark.regression
 def test_search_is_case_insensitive():
@@ -173,3 +173,39 @@ def test_slow_bulk_import_fifty_thousand_products():
     assert catalog.search("Book number 49999") == [49999]
     assert len(catalog.search("Book")) == n
 
+@pytest.mark.slow
+def test_slow_many_shopping_sessions_in_a_loop():
+    """Author: <ASTRH>. Slow: simulate 20,000 shoppers, each filling a cart with
+    300 items and checking out, then verify the order history.
+    # SLOW BECAUSE: 6,000,000 add() calls plus 20,000 checkouts in nested
+    # loops; each add() does a dictionary lookup and each checkout copies a
+    # 300-item list."""
+    catalog = Catalog()
+    for pid in range(500):
+        catalog.add_product(pid, f"Title {pid}", 5.0 + pid % 20)
+    cart = Cart(catalog)
+    sessions, items_per_session = 20_000, 300
+    for s in range(sessions):
+        for k in range(items_per_session):
+            assert cart.add((s + k) % 500) is True
+        order = cart.checkout()
+        assert len(order) == items_per_session
+        assert cart.items == []
+    assert len(cart.history()) == sessions
+    assert all(len(o) == items_per_session for o in cart.history())
+ 
+ 
+@pytest.mark.slow
+def test_slow_register_and_login_three_hundred_thousand_users():
+    """Author: <NAME>. Slow: register 300,000 users, then log every one in
+    and confirm wrong passwords are still rejected at that scale.
+    # SLOW BECAUSE: 300,000 registrations plus 600,000 login attempts, each
+    # doing per-character password processing."""
+    users = Users()
+    n = 300_000
+    for i in range(n):
+        assert users.register(f"user{i}", f"pw{i}abc") is True
+    assert len(users.users) == n
+    for i in range(n):
+        assert users.login(f"user{i}", f"pw{i}abc") is True
+        assert users.login(f"user{i}", "definitelywrong") is False
