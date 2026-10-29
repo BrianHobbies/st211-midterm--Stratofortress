@@ -32,5 +32,18 @@ def test_smoke_register_new_user_and_reject_duplicate():
     assert users.register("alice", "other456") is False
 
 # ---- YOUR REGRESSION TESTS (the bug hunt) ----
-
-# ---- YOUR SLOW TESTS (at least 2) ----
+@pytest.mark.regression
+def test_login_must_not_strip_characters_from_password():
+    """Author: <ASTRH>. Regression for Users.login.
+    Observed: login() strips every non-alphanumeric character from the
+    supplied password before comparing. A user who registered "p@ss!word"
+    can never log in (returns False), and a wrong password containing extra
+    symbols, "a-b-c-1-2-3", is accepted for the real password "abc123".
+    Expected: the password must match exactly as registered."""
+    users = Users()
+    users.register("dave", "p@ss!word")
+    users.register("eve", "abc123")
+    assert users.login("dave", "p@ss!word") is True
+    assert users.login("eve", "abc123") is True
+    assert users.login("eve", "a-b-c-1-2-3") is False
+ # ---- YOUR SLOW TESTS (at least 2) ----
