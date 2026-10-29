@@ -197,7 +197,7 @@ def test_slow_many_shopping_sessions_in_a_loop():
  
 @pytest.mark.slow
 def test_slow_register_and_login_three_hundred_thousand_users():
-    """Author: <NAME>. Slow: register 300,000 users, then log every one in
+    """Author: <ASTRH>. Slow: register 300,000 users, then log every one in
     and confirm wrong passwords are still rejected at that scale.
     # SLOW BECAUSE: 300,000 registrations plus 600,000 login attempts, each
     # doing per-character password processing."""
