@@ -322,34 +322,42 @@ Verdict: Genuine detection.
 One row per bug you recorded in `FINDINGS.md`, plus a row for any bug the
 supplied set caught that you had not found yourself.
 
+
 | Bug (your description) | We found it | The supplied set catches it | Which test, and how you established that |
 |---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
+| Bug 1 – Cart total misses an item | Yes | Yes | `test_cart_total_sums_items`: failed on shipped code, passed after the fix. |
+| Bug 2 – Import returns incorrect count | Yes | Yes | `test_import_returns_count`: failed on shipped code, passed after the fix. |
+| Bug 3 – Search returns more than 10 results | Yes | Yes | `test_search_is_limited_to_ten_results`: failed on shipped code, passed after the fix. |
+| Bug 4 – Search is case-sensitive | Yes | No | No supplied test checks lowercase and uppercase variations. Our regression test `test_search_is_case_insensitive` detected it separately. |
+| Bug 5 – Login does not check password correctly | Yes | No | `test_login_rejects_wrong_password` passed on the shipped code, so it did not detect this bug. |
+| Bug 6 – Empty-cart checkout returns wrong value | Yes | Yes | `test_checkout_empty_returns_none`: failed on shipped code, passed after the fix. |
+  
 
 This is a factual cross-reference, not an opinion. Every "yes" in the third
 column must point at a test you classified as a genuine detection in Part 2.
 
 ---
 
-## Part 4 — Verdict (4 marks, 400 words maximum)
 
-Four questions. Be specific and cite your own table.
 
-1. **Which failure mode was most common** in the supplied set? Give the count
-   from your summary table.
-2. **Why is a test that passes against buggy code more dangerous than one that
-   crashes?** A crashing test gets attention. Say what happens to the other
-   kind.
-3. **Did the supplied set catch anything you had missed?** If yes, what, and
-   what would have led you to it. If no, say so — that is a legitimate answer
-   and does not cost marks.
-4. **What will you check before trusting a generated test in future?** Name
-   checks you actually performed in this exercise, not general principles.
+## Part 4 – Verdict (4 marks, 400 words maximum)
 
-Answers that could have been written about any project score half marks at
-best.
+1. **Which failure mode was most common?**
+
+   There was a tie between genuine bug detection and tests that detected nothing. Out of 8 supplied AI-generated tests, 4 failed on the original buggy code and passed after the fixes. The other 4 passed on both versions. This showed that only half of the supplied tests actually detected bugs.
+
+2. **Why is a test that passes against buggy code more dangerous than one that crashes?**
+
+   A passing test can make us think the program is correct even when a bug still exists. For example, the supplied wrong-password login test passed on the original code, although we found a password-checking problem separately. A crashing test is easier to notice because it clearly shows something needs attention.
+
+3. **Did the supplied set catch anything you had missed?**
+
+   No. We had already investigated the cart total, product import count, empty-cart checkout, and search result limit problems. The supplied tests helped confirm these problems, but they did not identify a new bug that our team had missed.
+
+4. **What will you check before trusting a generated test in future?**
+
+   We will first read the test and check whether its expected result matches the function requirements. We will also run it against both the original buggy code and the corrected version. In this exercise, we found that some tests passed even when bugs existed. We will therefore check the assertions carefully and make sure each test can actually detect the problem it claims to test.
+  
 
 ---
 
