@@ -17,7 +17,14 @@ Before you submit, check all eight boxes:
 - [ ] No claim made that you cannot demonstrate from pasted output
 - [ ] File committed as `AI_USAGE.md` in the repository root
 
----
+### Pytest Evidence Files
+
+We tested the eight AI-generated tests against both versions of the bookstore application.
+
+- Shipped code: `shipped_evidence.txt` — 4 failed, 4 passed.
+- Fixed code: `fixed_evidence.txt` — 8 passed.
+
+Both files contain the pytest output from the test runs.
 
 ## Part 1 — AI usage declaration (required, unmarked)
 

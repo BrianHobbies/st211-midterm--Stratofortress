@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.2, pytest-9.2.0, pluggy-1.7.0 -- /home/codespace/.python/current/bin/python
+cachedir: .pytest_cache
+rootdir: /workspaces/st211-midterm--Stratofortress
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collecting ... collected 8 items
+
+ai_review/test_ai_generated.py::test_cart_total_sums_items PASSED        [ 12%]
+ai_review/test_ai_generated.py::test_login_rejects_wrong_password PASSED [ 25%]
+ai_review/test_ai_generated.py::test_search_finds_exact_title PASSED     [ 37%]
+ai_review/test_ai_generated.py::test_import_returns_count PASSED         [ 50%]
+ai_review/test_ai_generated.py::test_register_duplicate_returns_false PASSED [ 62%]
+ai_review/test_ai_generated.py::test_checkout_empty_returns_none PASSED  [ 75%]
+ai_review/test_ai_generated.py::test_add_to_cart_returns_true_for_known_product PASSED [ 87%]
+ai_review/test_ai_generated.py::test_search_is_limited_to_ten_results PASSED [100%]
+
+============================== 8 passed in 0.03s ===============================
