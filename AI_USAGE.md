@@ -101,14 +101,14 @@ leaving the row blank. Check before you write.
 
 | # | Test | What it claims to catch | Shipped | Fixed | Verdict | Auditor |
 |---|---|---|---|---|---|---|
-| 1 | test_cart_total_sums_items | Cart total calculation | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
+| 1 | test_cart_total_sums_items | Cart total calculation | FAIL | PASS | Genuine detection | Moe Pyae Kyaw |
 | 2 | test_login_rejects_wrong_password | Reject incorrect password | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
 | 3 | test_search_finds_exact_title | Find matching book title | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
 | 4 | test_import_returns_count | Return correct imported item count | FAIL | PASS | Genuine detection | Moe Pyae Kyaw |
 | 5 | test_register_duplicate_returns_false | Reject duplicate registration | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
 | 6 | test_checkout_empty_returns_none | Return None for empty checkout | FAIL | PASS | Genuine detection | Moe Pyae Kyaw |
 | 7 | test_add_to_cart_returns_true_for_known_product | Accept a known product | PASS | PASS | Detects nothing | Moe Pyae Kyaw |
-| 8 | test_search_is_limited_to_ten_results | Limit search results to ten | FAIL | FAIL | Needs investigation | Moe Pyae Kyaw |
+| 8 | test_search_is_limited_to_ten_results | Limit search results to ten | FAIL | PASS | Genuine detection | Moe Pyae Kyaw |
 
 ### Detail entries
 
@@ -127,17 +127,21 @@ and line instead.
 This test claims to check whether the cart total correctly adds the prices of items.
 
 **Evidence — shipped code:**  
-Command: `pytest ai_review/test_ai_generated.py::test_cart_total_sums_items -v`  
-Result: PASSED
+>       assert c.total() == 30
+E       assert 10 == 30
+E        +  where 10 = total()
+
+/workspaces/st211-midterm--Stratofortress/ai_review/test_ai_generated.py:16: AssertionError
+Result: FAILED
 
 **Evidence — fixed code:**  
-Command: `pytest ai_review/test_ai_generated.py::test_cart_total_sums_items -v`  
+  ai_review/test_ai_generated.py::test_cart_total_sums_items PASSED [ 12%]
 Result: PASSED
 
 **What the pair proves:**  
-The test passed with both the original buggy code and the fixed code. It did not detect the planted cart total bug.
+The original code returned 10 instead of the expected total of 30. After fixing the cart total calculation, the test passed. This confirms that the test detected a real bug.
 
-**Verdict:** Detects nothing.
+**Verdict:** Genuine detection.
 
 ---
 
@@ -175,7 +179,144 @@ The test passed against both the original buggy code and the fixed code. It chec
 
 **1. What it claims to catch**
 
-This test checks whether the catalog search function can find a book by its exact title. It verifies basic search functionality but does not specifically test the maximum number of search results.
+Evidence — shipped code:
+
+Result: PASSED
+
+Evidence — fixed code:
+
+Result: PASSED
+
+What the pair proves:
+
+The test passed against both the original and fixed versions. It checks whether a product can be found by its exact title, but it does not detect the search result limit bug.
+
+Verdict: Detects nothing.
+
+Test 4: test_import_returns_count
+
+Audited by: Moe Pyae Kyaw
+
+What it claims to catch:
+
+This test checks whether import_products() returns the correct number of imported products.
+
+Evidence — shipped code:
+
+>       assert c.import_products([(1, "A", 5), (2, "B", 6)]) == 2
+E       AssertionError: assert 3 == 2
+E        +  where 3 = import_products([(1, 'A', 5), (2, 'B', 6)])
+/workspaces/st211-midterm--Stratofortress/ai_review/test_ai_generated.py:34: AssertionError
+
+Result: FAILED
+
+Evidence — fixed code:
+
+ai_review/test_ai_generated.py::test_import_returns_count PASSED [ 50%]
+
+Result: PASSED
+
+What the pair proves:
+
+The original code returned 3 after importing only 2 products. After fixing the incorrect count, the test passed. This confirms that the test detected a real bug.
+
+Verdict: Genuine detection.
+
+Test 5: test_register_duplicate_returns_false
+
+Audited by: Moe Pyae Kyaw
+
+What it claims to catch:
+
+This test checks whether the system rejects a duplicate username during registration.
+
+Evidence — shipped code:
+
+Result: PASSED
+
+Evidence — fixed code:
+
+Result: PASSED
+
+What the pair proves:
+
+The test passed with both the original and fixed code. Although it checks duplicate registration, it did not detect any of the planted bugs.
+
+Verdict: Detects nothing.
+
+Test 6: test_checkout_empty_returns_none
+
+Audited by: Moe Pyae Kyaw
+
+What it claims to catch:
+
+This test checks whether checkout returns None when the shopping cart is empty.
+
+Evidence — shipped code:
+
+Result: FAILED
+
+Evidence — fixed code:
+
+Result: PASSED
+
+What the pair proves:
+
+The test failed with the original code because checkout did not return None for an empty cart. After the checkout function was fixed, the test passed. This shows that the test detected a real bug.
+
+Verdict: Genuine detection.
+
+Test 7: test_add_to_cart_returns_true_for_known_product
+
+Audited by: Moe Pyae Kyaw
+
+What it claims to catch:
+
+This test checks whether the cart accepts a product that exists in the catalog and returns True when the product is added.
+
+Evidence — shipped code:
+
+Result: PASSED
+
+Evidence — fixed code:
+
+Result: PASSED
+
+What the pair proves:
+
+The test passed with both the original and fixed code. It checks basic add-to-cart functionality but did not detect any of the planted bugs.
+
+Verdict: Detects nothing.
+
+Test 8: test_search_is_limited_to_ten_results
+
+Audited by: Moe Pyae Kyaw
+
+What it claims to catch:
+
+This test checks whether the catalog search function returns no more than 10 matching products.
+
+Evidence — shipped code:
+
+>       assert len(cat.search("match")) <= 10
+E       AssertionError: assert 20 <= 10
+E        +  where 20 = len([0, 1, 2, 3, 4, 5, ...])
+/workspaces/st211-midterm--Stratofortress/ai_review/test_ai_generated.py:60: AssertionError
+
+Result: FAILED
+
+Evidence — fixed code:
+
+ai_review/test_ai_generated.py::test_search_is_limited_to_ten_results PASSED [100%]
+1 passed in 0.02s
+
+Result: PASSED
+
+What the pair proves:
+
+The original code returned 20 matching products even though the search results should be limited to 10. After fixing the catalog search function, the test passed. This confirms that the test detected a real bug.
+
+Verdict: Genuine detection.
 ## Part 3 — Coverage against your own bug hunt
 
 One row per bug you recorded in `FINDINGS.md`, plus a row for any bug the
