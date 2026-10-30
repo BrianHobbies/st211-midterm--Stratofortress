@@ -1,6 +1,10 @@
 # AI Usage Declaration and Audit
-
-**Group:** Stratofortress  **Members:** Aung San Thu Rain Tun ,Moe Pyae Kyaw ,May Than Thar Ko
+Group: <Stratofortress>   
+| Member  | ID | Username |
+| ------------- | ------------- | ------------- |
+| Aung San Thu Rain Tun  | 6805142005 | BrianHobbies |
+| May Than Thar Ko  | 6805140051 | 6805140051-oss |
+| Moe Pyae Kyaw  | 6805142010 | 6805142010-hue |
 
 **Part D3 of the midterm — 20 marks.** Part 1 is required but carries no marks;
 its absence is an academic-honesty matter. Part 2 is worth 16 (2 per test).

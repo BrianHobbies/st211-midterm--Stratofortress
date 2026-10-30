@@ -91,7 +91,7 @@ def test_smoke_checkout_produces_an_order_and_empties_cart():
 # ---- YOUR REGRESSION TESTS (the bug hunt) ----
 @pytest.mark.regression
 def test_login_must_not_strip_characters_from_password():
-    """Author: <ASTRH>. Regression for Users.login.
+    """Author: <Aung San Thu Rain Tun>. Regression for Users.login.
     Observed: login() strips every non-alphanumeric character from the
     supplied password before comparing. A user who registered "p@ss!word"
     can never log in (returns False), and a wrong password containing extra
@@ -106,7 +106,7 @@ def test_login_must_not_strip_characters_from_password():
 
 @pytest.mark.regression
 def test_cart_total_includes_every_item():
-    """Author: <ASTRH>. Regression for Cart.total.
+    """Author: <Aung San Thu Rain Tun>. Regression for Cart.total.
     Observed: the loop runs over range(len(items) - 1), so the LAST item is
     never added: items priced 10, 20, 30 give 30 instead of 60.
     Expected: total() is the sum of the prices of all items in the cart."""
@@ -121,7 +121,7 @@ def test_cart_total_includes_every_item():
 
 @pytest.mark.regression
 def test_checkout_empty_cart_returns_none_and_records_no_order():
-    """Author: <ASTRH>. Regression for Cart.checkout.
+    """Author: <Aung San Thu Rain Tun>. Regression for Cart.checkout.
     Observed: checking out an empty cart returns [] and appends an empty
     order to the history.
     Expected: the docstring says it returns None if the cart is empty, and
@@ -132,7 +132,7 @@ def test_checkout_empty_cart_returns_none_and_records_no_order():
  
 @pytest.mark.regression
 def test_search_is_case_insensitive():
-    """Author: <ASTRH>. Regression for Catalog.search.
+    """Author: <Aung San Thu Rain Tun>. Regression for Catalog.search.
     Observed: search("python") returns [] for a product titled
     "Python Testing", and search("TESTING") also returns []. Only an exact
     case match is found.
@@ -147,7 +147,7 @@ def test_search_is_case_insensitive():
  
 @pytest.mark.regression
 def test_import_products_returns_exact_count():
-    """Author: <ASTRH>. Regression for Cart.import_products.
+    """Author: <Aung San Thu Rain Tun>. Regression for Cart.import_products.
     Observed: importing 3 products returns 4 (count + 1).
     Expected: it returns how many were imported, i.e. 3."""
     cart = Cart(Catalog())
@@ -158,7 +158,7 @@ def test_import_products_returns_exact_count():
 # ---- YOUR SLOW TESTS (at least 2) ----
 @pytest.mark.slow
 def test_slow_bulk_import_fifty_thousand_products():
-    """Author: <ASTRH>. Slow: bulk-import 150,000 products and confirm every
+    """Author: <Aung San Thu Rain Tun>. Slow: bulk-import 150,000 products and confirm every
     one is stored and searchable.
     # SLOW BECAUSE: import_products loops over every product and yields the scheduler each iteration via time.sleep(0), and the follow-up 
     # checks scan all 150,000 catalog entries"""
@@ -175,7 +175,7 @@ def test_slow_bulk_import_fifty_thousand_products():
 
 @pytest.mark.slow
 def test_slow_many_shopping_sessions_in_a_loop():
-    """Author: <ASTRH>. Slow: simulate 20,000 shoppers, each filling a cart with
+    """Author: <Aung San Thu Rain Tun>. Slow: simulate 20,000 shoppers, each filling a cart with
     300 items and checking out, then verify the order history.
     # SLOW BECAUSE: 6,000,000 add() calls plus 20,000 checkouts in nested
     # loops; each add() does a dictionary lookup and each checkout copies a
@@ -197,7 +197,7 @@ def test_slow_many_shopping_sessions_in_a_loop():
  
 @pytest.mark.slow
 def test_slow_register_and_login_three_hundred_thousand_users():
-    """Author: <ASTRH>. Slow: register 300,000 users, then log every one in
+    """Author: <Aung San Thu Rain Tun>. Slow: register 300,000 users, then log every one in
     and confirm wrong passwords are still rejected at that scale.
     # SLOW BECAUSE: 300,000 registrations plus 600,000 login attempts, each
     # doing per-character password processing."""

@@ -4,8 +4,12 @@ Fill in one entry per bug you find, AS YOU FIND IT (before doing the AI
 comparison). Write in your own words, like a detective's notebook. Show the real
 path -- including things you tried that did not work.
 
-Group: <your group name>
-Members: <names>
+Group: <Stratofortress>   
+| Member  | ID | Username |
+| ------------- | ------------- | ------------- |
+| Aung San Thu Rain Tun  | 6805142005 | BrianHobbies |
+| May Than Thar Ko  | 6805140051 | 6805140051-oss |
+| Moe Pyae Kyaw  | 6805142010 | 6805142010-hue |
 
 ---
 

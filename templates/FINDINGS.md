@@ -8,12 +8,13 @@ Group: <name>   Members: <names>
 ---
 
 ## Bug 1
-- **Suspected:** <which function, and what made you suspicious>
-- **Tried:** <the input or test you used>
-- **Observed:** <the actual, wrong result -- paste it>
-- **Expected:** <the correct behaviour, and why that is correct>
-- **Fixed:** <what you changed>
-- **Author:** <name>
+- **Module / function:** <e.g. cart.py -> total()>
+- **What we suspected and why:** <what made you look here?>
+- **What we did:** <the input or test you tried>
+- **What we observed (the wrong result):** <actual output>
+- **What we expected instead:** <correct behaviour>
+- **The fix we made:** <what you changed>
+- **Author of this finding:** <name>
 
 ---
 
