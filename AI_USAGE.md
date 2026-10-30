@@ -335,32 +335,36 @@ supplied set caught that you had not found yourself.
 
 | Bug (your description) | We found it | The supplied set catches it | Which test, and how you established that |
 |---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
+| Cart total misses an item | Yes | Yes | `test_cart_total_sums_items` failed on shipped code and passed on fixed code. |
+| Import returns incorrect count | Yes | Yes | `test_import_returns_count` failed on shipped code and passed on fixed code. |
+| Search returns more than 10 results | Yes | Yes | `test_search_is_limited_to_ten_results` failed on shipped code and passed on fixed code. |
+| Search is case-sensitive | Yes | No | The supplied tests did not check case-insensitive search. Our own regression test checked this bug. |
+| Login does not check password correctly | Yes | No | `test_login_rejects_wrong_password` passed on both shipped and fixed code, so it did not detect the bug. |
+| Empty-cart checkout returns wrong value | Yes | Yes | `test_checkout_empty_returns_none` failed on shipped code and passed on fixed code. |
 
-This is a factual cross-reference, not an opinion. Every "yes" in the third
-column must point at a test you classified as a genuine detection in Part 2.
+The supplied AI tests detected four of our six bugs. The other two bugs were not detected by the supplied set.
+
 
 ---
 
 ## Part 4 — Verdict (4 marks, 400 words maximum)
 
-Four questions. Be specific and cite your own table.
 
-1. **Which failure mode was most common** in the supplied set? Give the count
-   from your summary table.
-2. **Why is a test that passes against buggy code more dangerous than one that
-   crashes?** A crashing test gets attention. Say what happens to the other
-   kind.
-3. **Did the supplied set catch anything you had missed?** If yes, what, and
-   what would have led you to it. If no, say so — that is a legitimate answer
-   and does not cost marks.
-4. **What will you check before trusting a generated test in future?** Name
-   checks you actually performed in this exercise, not general principles.
+1. Which failure mode was most common in the supplied set?
 
-Answers that could have been written about any project score half marks at
-best.
+There was a tie. Four AI-generated tests genuinely detected bugs, while four tests did not detect any bug. The genuine tests failed on shipped code and passed on fixed code. The other four tests passed on both versions.
+
+2. Why is a test that passes against buggy code more dangerous than one that crashes?
+
+A test that passes against buggy code can give us false confidence. We might think the feature works correctly even though a bug still exists. For example, test_login_rejects_wrong_password passed on the shipped code even though the login password bug was present. A crashing test is easier to notice because it clearly shows a problem.
+
+3. Did the supplied set catch anything you had missed?
+
+No. The supplied tests detected four bugs that our team had already found: cart total, import count, empty-cart checkout, and search result limit. They did not find any additional bugs.
+
+4. What will you check before trusting a generated test in future?
+
+We will check whether the test assertions match the actual requirements. We will also run the test against both the shipped and fixed code, as we did in this project. A test that passes on both versions does not necessarily prove that it can detect the intended bug.
 
 ---
 
